@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-color:#303030;
+    --hue:194;
+    --primary-color: hsl(var(--hue),100%,63%);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    background-color: rgb(254, 230, 230);
+}
+
+#app{
+    padding: 20px;
+    max-width: 600px;
+    margin:0 auto;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 25px 0;
+}
+
+.search{
+    display: flex;
+    align-items: center;
+}
+
+.search input{
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    padding: 8px;
+}
+
+button{
+    background-color: var(--primary-color);
+}
+
+.search button{
+    border-radius: 0 4px 4px 0;
+    height: 32px;
+    border: none;
+    padding: 8px;
+}
+
+.search botton:hover{
+    filter: brightness(1.1);
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.3);
+}
+
+table *{
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+table th{
+    background-color: var(--primary-color);
+    text-align: left;
+    font-weight: normal;
+    padding: 15px;
+}
+
+table th:first-child{
+    border-top-left-radius: 4px;
+}
+
+table th:last-child{
+    border-top-right-radius: 4px;
+}
+
+table td{
+    padding: 15px;
+    text-align: left;
+}
+
+table tr:nth-child(odd){
+    background: #ddd;
+}
+
+td.user{
+    display: flex;
+    align-items: center;
+}
+
+.remove{
+    border: none;
+    background-color: transparent;
+
+}
+
+a{
+    text-decoration: none;
+}
+
+td img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 5px;
+}
+
