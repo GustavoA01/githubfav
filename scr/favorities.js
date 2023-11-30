@@ -7,18 +7,16 @@ export class Favorities {
     }
 
     load() {
-        this.entries = JSON.parse(localStorage.getItem
-        ('@github-favorities:')) || []
+        this.entries = JSON.parse(localStorage.getItem('@github-favorities:')) || []
     }
 
     save(){
-        localStorage.setItem('@github-favorities',JSON.stringify(this.entries))
+        localStorage.setItem('@github-favorities:',JSON.stringify(this.entries))
     }
 
     async add(username){
         try{
-            const userExists = this.entries.find(entry => entry.login == username.login)
-            console.log(userExists)
+            const userExists = this.entries.find(entry => {return entry.login === username})
 
             if(userExists){
                 throw new Error("Esse usuário já existe na lista")
@@ -38,9 +36,9 @@ export class Favorities {
         }
     }
 
-    delete(user) {
-        console.log(this.entries)
-        const filtered = this.entries.filter(entry => {entry.login !== user.login})
+    async delete(id) {
+        const user = await GithubUser.search(id)
+        const filtered = this.entries.filter(entry => { return entry.login !== user.login});
         this.entries = filtered
         this.update()
         this.save()
@@ -74,7 +72,11 @@ export class FavoritiesView extends Favorities {
             row.addEventListener('click', () => {
                 const isOk = confirm('Tem certeza que deseja deletar essa linha?')
                 if (isOk) {
-                    this.delete(user)
+                    let id = row.classList.value
+                    id = String(id)
+                    id = id.split(' ')
+                    id = id[1]
+                    this.delete(id)
                 }
             })
         })
@@ -88,7 +90,7 @@ export class FavoritiesView extends Favorities {
             document.querySelector('tbody').innerHTML += `
             <tr>
               <td class="user">
-                  <img src="https://github.com/${user[i].name}.png" alt="">
+                  <img src="https://github.com/${user[i].login}.png" alt="">
                   <a href="https://github.com/${user[i].login}" target="_blank">
                     <p><strong>${user[i].name}</strong></p>
                           <span>${user[i].login}</span>
@@ -101,7 +103,7 @@ export class FavoritiesView extends Favorities {
                  ${user[i].followers}
              </td>
              <td>
-              <button class = "remove">&times;</button>
+              <button class = "remove ${user[i].login}">&times;</button>
                </td>
              </tr>`
         }
